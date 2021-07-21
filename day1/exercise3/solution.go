@@ -2,33 +2,48 @@ package main
 
 import "fmt"
 
-type person struct {
-	role string
-	days int
-	hours int
-}
 type Employee interface {
-	cal() int
+	GetSalary() int
 }
 
-func (p *person)cal() int{
-	if p.role == "fulltime"{
-		return p.days*500
-	} else if p.role == "contractor"{
-		return p.days*100
-	}else {
-		return p.hours*10
-	}
+type FullTimeEmployee struct {
+	Name string
+	BasicMultiplier int
 }
+
+func (f FullTimeEmployee) GetSalary() int{
+	return f.BasicMultiplier*500
+}
+
+type Contractor struct {
+	Name string
+	BasicMultiplier int
+}
+
+func (c Contractor) GetSalary() int {
+	return c.BasicMultiplier*100
+}
+
+type PartTimeEmployee struct {
+	Name string
+	BasicMultiplier int
+}
+
+func (p PartTimeEmployee) GetSalary() int {
+	return p.BasicMultiplier*10
+}
+
 func main(){
 	var e Employee
-	fte := &person{role: "fulltime",days: 28}
-	con := &person{role: "contractor",days: 28}
-	free := &person{role: "freelancer",hours: 20}
+	fte := &FullTimeEmployee{"rohan_fte", 28}
+	con := &Contractor{"rohan_con", 28}
+	pte := &PartTimeEmployee{"rohan_pte", 20}
 	e=fte
-	fmt.Println(e.cal())
+	fmt.Println("Salary of FTE: ", e.GetSalary())
 	e=con
-	fmt.Println(e.cal())
-	e=free
-	fmt.Println(e.cal())
+	fmt.Println("Salary of CON: ", e.GetSalary())
+	e=pte
+	fmt.Println("Salary of PTE: ", e.GetSalary())
+
+
 }
