@@ -5,6 +5,7 @@ import (
 	"math/rand"
 	"sync"
 	"sync/atomic"
+	"time"
 )
 
 func main() {
@@ -14,6 +15,7 @@ func main() {
 		wg.Add(1)
 		go func(){
 			atomic.AddUint32(&sum, uint32(rand.Intn(10)))
+			time.Sleep(time.Duration(rand.Int()))
 			wg.Done()
 		}()
 		// wg.Done() // doubt: using wg.Done() here gives random output why!?
