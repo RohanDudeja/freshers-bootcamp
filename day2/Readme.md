@@ -23,7 +23,7 @@ I tried to implement on basis of MVC framework:
 
 Command to run the code:
 1. Clone the repo
-2. Change the database and password in Config/Database.go
+2. Change the database and password for mysql in `freshers-bootcamp/day4_5/Config/Database.go`
 3. and run `go run freshers-bootcamp/day4-5/main.go`
 
 
