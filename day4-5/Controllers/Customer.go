@@ -32,13 +32,13 @@ func PlaceOrder(w http.ResponseWriter, r *http.Request) {
 		return
 	} else {
 		errs:= Models.CreateOrder(order)
-		if err!=nil {
+		if errs!=nil {
 			panic(errs)
 		}
 		w.WriteHeader(http.StatusAccepted)
-		errJson,_ := json.Marshal(err)
-		w.Write(errJson)
-		w.Write([]byte(`{"message: orderPlaced}"`))
+		orderJson,_ := json.Marshal(order)
+		w.Write(orderJson)
+		w.Write([]byte(`{"message: orderPlaced"}`))
 	}
 
 }

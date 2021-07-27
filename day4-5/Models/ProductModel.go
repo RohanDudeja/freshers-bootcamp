@@ -8,7 +8,7 @@ type Product struct {
 	RetailerID uint `json:"retailer_id"`
 	Price uint `json:"price"`
 	Quantity uint `json:"quantity"` //quantity available
-	Status bool //true for in stock
+	Status bool `json:"status"`//true for in stock
 }
 func (b *Product) TableName() string {
 	return "products"
