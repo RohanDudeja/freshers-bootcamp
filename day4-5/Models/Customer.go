@@ -22,7 +22,7 @@ func CreateCustomer(customer *Customer) (err error) {
 }
 //GetProductByID ... Fetch only one product by Id
 func GetCustomerByID(customer *Customer, id string) (err error) {
-	if err = Config2.DB.Where("id = ?", id).First(customer).Error; err != nil {
+	if err = Config2.DB.Where("customer_id = ?", id).First(customer).Error; err != nil {
 		return err
 	}
 	return nil

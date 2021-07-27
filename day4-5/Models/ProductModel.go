@@ -4,8 +4,9 @@ import "github.com/jinzhu/gorm"
 
 type Product struct {
 	gorm.Model
+	ProductID string `json:"product_id"`
 	Name string `json:"Name"`
-	RetailerID uint `json:"retailer_id"`
+	RetailerID string `json:"retailer_id"`
 	Price uint `json:"price"`
 	Quantity uint `json:"quantity"` //quantity available
 	Status bool `json:"status"`//true for in stock
