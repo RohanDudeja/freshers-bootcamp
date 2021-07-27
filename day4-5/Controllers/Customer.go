@@ -63,6 +63,7 @@ func PlaceOrder(w http.ResponseWriter, r *http.Request) {
 			} else {
 				customer.UpdatedAt = time.Now().Local()
 			}
+			Models.UpdateProduct(&product,product.ProductID)
 		}
 
 		errs:= Models.CreateOrder(order)
