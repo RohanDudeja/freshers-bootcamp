@@ -24,13 +24,15 @@ func main() {
 
 	r := mux2.NewRouter()
 
-	api := r.PathPrefix("").Subrouter()
-	api.HandleFunc("/product",Controllers2.AddProduct).Methods(http.MethodPost)
-	api.HandleFunc("/product/{id}",Controllers2.UpdateProduct).Methods(http.MethodPatch)
-	api.HandleFunc("/product/{id}",Controllers2.GetProductByID).Methods(http.MethodGet)
-	api.HandleFunc("/products", Controllers2.GetAllProducts).Methods(http.MethodGet)
-	api.HandleFunc("/order",Controllers2.PlaceOrder).Methods(http.MethodPost)
-	api.HandleFunc("/order/{id}",Controllers2.GetOrderByID).Methods(http.MethodGet)
+	ret := r.PathPrefix("/retailer/").Subrouter()
+	ret.HandleFunc("/product",Controllers2.AddProduct).Methods(http.MethodPost)
+	ret.HandleFunc("/product/{id}",Controllers2.UpdateProduct).Methods(http.MethodPatch)
+
+	con := r.PathPrefix("/consumer").Subrouter()
+	con.HandleFunc("/product/{id}",Controllers2.GetProductByID).Methods(http.MethodGet)
+	con.HandleFunc("/products", Controllers2.GetAllProducts).Methods(http.MethodGet)
+	con.HandleFunc("/order",Controllers2.PlaceOrder).Methods(http.MethodPost)
+	con.HandleFunc("/order/{id}",Controllers2.GetOrderByID).Methods(http.MethodGet)
 
 	log.Fatal(http.ListenAndServe(":8080", r))
 }

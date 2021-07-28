@@ -34,14 +34,14 @@ func PlaceOrder(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(order)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		panic(err)
 		return
 	} else {
 		var product Models.Product
 		perr:= Models.GetProductByID(&product, order.ProductID)
 		if perr != nil{
 			fmt.Println("product not found")
-			panic(perr)
+			w.WriteHeader(http.StatusNotFound)
+			return
 		}else {
 			// checking status of customer
 			// to subtract from products and adding delay for customer
@@ -57,9 +57,10 @@ func PlaceOrder(w http.ResponseWriter, r *http.Request) {
 			}
 			var customer Models.Customer
 			cerr := Models.GetCustomerByID(&customer, string(order.CustomerID))
-			if err != nil {
+			if cerr != nil {
 				product.Quantity++
-				panic(cerr)
+				w.WriteHeader(http.StatusNotFound)
+				return
 			} else {
 				customer.UpdatedAt = time.Now().Local()
 			}
@@ -68,14 +69,16 @@ func PlaceOrder(w http.ResponseWriter, r *http.Request) {
 
 		errs:= Models.CreateOrder(order)
 		if errs!=nil {
-			panic(errs)
+			w.WriteHeader(http.StatusNotFound)
+			return
 		}
 		w.WriteHeader(http.StatusAccepted)
 		orderJson,_ := json.Marshal(order)
 		_,e:=w.Write(orderJson)
 		_,e=w.Write([]byte(`"message: orderPlaced"`))
 		if e!=nil{
-			panic(e)
+			w.WriteHeader(http.StatusNotFound)
+			return
 		}
 	}
 
@@ -85,7 +88,7 @@ func ViewPurchaseHistory(w http.ResponseWriter, r *http.Request) (err error){
 	//taking ID parameter from url
 	vars := mux.Vars(r)
 	id:= vars["id"]
-	if err = Config2.DB.Where("id = ?", id).Error; err != nil {
+	if err = Config2.DB.Where("customer_id = ?", id).Error; err != nil {
 		return err
 	}
 	return nil
@@ -100,13 +103,14 @@ func GetOrderByID(w http.ResponseWriter, r *http.Request){
 	err := Models.GetOrderByID(&order, id)
 	if err != nil {
 		w.WriteHeader(http.StatusNotFound)
-		panic(err)
+		return
 	} else {
 		//output in postman
 		orderJson,_:=json.Marshal(order)
 		_,e:=w.Write(orderJson)
 		if e!=nil{
-			panic(e)
+			w.WriteHeader(http.StatusNotFound)
+			return
 		}
 		w.WriteHeader(http.StatusOK)
 	}
