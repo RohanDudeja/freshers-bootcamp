@@ -31,13 +31,12 @@ Command to run the code:
 3. and run `go run freshers-bootcamp/day4-5/main.go`
 
 *API calls*
-POST: `retailer/product` to AddProduct
-PATCH: `reatiler/product/{id}` to UpdateProduct
-
-GET: `/consumer/product/{id}` to GetProductByID
-GET:	`consumer/products` to GetAllProducts
-POST:	`consumer/order` to Controllers2.PlaceOrder).Methods(http.MethodPost)
-GET: `consumer/order/{id}` to GetOrderByID
+* POST: `retailer/product` to AddProduct
+* PATCH: `reatiler/product/{id}` to UpdateProduct
+* GET: `/consumer/product/{id}` to GetProductByID
+* GET:	`consumer/products` to GetAllProducts
+* POST:	`consumer/order` to PlaceOrder
+* GET: `consumer/order/{id}` to GetOrderByID
 
 
 
