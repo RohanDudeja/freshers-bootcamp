@@ -1,0 +1,1 @@
+Maintain a student table that stores student information like First name, Last name, DOB, Address, and marks scored by the student in each subject. Actions like inserting new records, updating, etc should be done via HTTP calls. (extension: follow MVC architecture)
