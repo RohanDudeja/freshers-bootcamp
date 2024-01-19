@@ -15,7 +15,7 @@ func (m Matrix)getRowCount() int {
 	return m.Row
 }
 func (m Matrix)getColCount() int {
-	return m.Row
+	return m.Col
 }
 func (m *Matrix)setValAt(i,j,k int) {
 	m.Val[i][j]=k
